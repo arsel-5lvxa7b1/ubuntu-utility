@@ -3,34 +3,31 @@
 type=$1
 
 case "$type" in
-"")
-	selection=$(dmenu -m 0 < ~/.config/gtk-3.0/bookmarks -p 'thunar bookmarks')
-	[[ -n $selection ]] || exit
+    '')
+        selection=$(dmenu -m 0 < ~/.config/gtk-3.0/bookmarks -p 'thunar bookmarks')
+        [[ -n $selection ]] || exit
+        xdotool type --clearmodifiers "$selection"
+        ;;
+    mount)
+        selection=$(grep -v "^file://" ~/.config/gtk-3.0/bookmarks | dmenu -m 0 -p 'gio mount')
+        [[ -n $selection ]] || exit
+        error=$(gio mount "$selection" 2>&1 >/dev/null)
 
-	xdotool type --clearmodifiers "$selection"
-	;;
-"mount")
-	selection=$(grep -v "^file://" ~/.config/gtk-3.0/bookmarks | dmenu -m 0 -p 'gio mount')
-	[[ -n $selection ]] || exit
+        if [[ $? -eq 0 ]]; then
+            notify-send "GIO mount" "Mounted succefully" -i emblem-default
+        else
+            notify-send "GIO mount" "$error" -i error
+        fi
+        ;;
+    unmount)
+        selection=$(grep -v "^file://" ~/.config/gtk-3.0/bookmarks | dmenu -m 0 -p 'gio mount -u')
+        [[ -n $selection ]] || exit
+        error=$(gio mount -u "$selection" 2>&1 >/dev/null)
 
-	error=$(gio mount "$selection" 2>&1 >/dev/null)
-    if [[ $? -eq 0 ]]
-	then
-        notify-send "GIO mount" "Mounted succefully" -i emblem-default
-	else
-		notify-send "GIO mount" "$error" -i error
-    fi
-	;;
-"unmount")
-	selection=$(grep -v "^file://" ~/.config/gtk-3.0/bookmarks | dmenu -m 0 -p 'gio mount -u')
-	[[ -n $selection ]] || exit
-
-	error=$(gio mount -u "$selection" 2>&1 >/dev/null)
-	if [[ $? -eq 0 ]];
-	then
-		notify-send "GIO mount" "Unmounted succefully" -i emblem-default
-	else
-        notify-send "GIO mount" "$error" -i error
-    fi
-	;;
+        if [[ $? -eq 0 ]]; then
+            notify-send "GIO mount" "Unmounted succefully" -i emblem-default
+        else
+            notify-send "GIO mount" "$error" -i error
+        fi
+        ;;
 esac
