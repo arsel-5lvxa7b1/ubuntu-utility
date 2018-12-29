@@ -1,5 +1,6 @@
 alias apti='sudo apt install'
 alias aptr='sudo apt remove'
+alias aptrp='sudo apt remove --purge'
 alias aptu='sudo apt update'
 alias aptuu='sudo apt update && sudo apt upgrade'
 alias apts='apt search'
