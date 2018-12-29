@@ -1,0 +1,8 @@
+alias apti='sudo apt install'
+alias aptr='sudo apt remove'
+alias aptu='sudo apt update'
+alias aptuu='sudo apt update && sudo apt upgrade'
+alias apts='apt search'
+alias aptar='sudo apt autoremove'
+alias aptli='apt list --installed'
+alias ports='sudo lsof -i -P -n | grep LISTEN'
