@@ -8,5 +8,12 @@ alias aptar='sudo apt autoremove'
 alias aptac='sudo apt autoclean'
 alias aptli='apt list --installed'
 alias aptlu='apt list --upgradable'
+
+alias gits='git status'
+alias gitp='git pull'
+alias gitfa='git fetch --all'
+alias gitc='git checkout'
+alias gitrh='git reset --hard'
+
 alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias ll='ls -alFh'
