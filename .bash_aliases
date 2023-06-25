@@ -17,6 +17,3 @@ alias gitrh='git reset --hard'
 
 alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias ll='ls -alFh'
-
-# Laravel
-alias sail='./vendor/bin/sail'
